@@ -1,0 +1,35 @@
+.twitterYTShareButton {
+    background-color: rgb(29, 161, 242);
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    float: none;
+    margin-right: 10px;
+    top: 6px;
+}
+
+.twitterYTShareMessage {
+    width: 68px;
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+    max-height: 42px;
+    line-height: 1.8rem;
+    font-weight: 400;
+    font-family: "Roboto", "Arial", sans-serif;
+    margin: auto;
+    white-space: normal;
+    position: relative;
+    top: 1.5px;
+}
+
+.twitterYTShareButton:hover {
+    filter: brightness(120%);
+}

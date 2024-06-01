@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "twitterYTShare",
+    "version": "1.0",
+    "description": "YouTube, YouTube Musicで、Twitter共有用の文章をコピーするボタンを追加します。",
+    "author": "Akaaku",
+    "action": {
+        "default_icon": {
+            "16": "images/icon16.png",
+            "32": "images/icon32.png",
+            "48": "images/icon48.png",
+            "64": "images/icon64.png",
+            "128": "images/icon128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://music.youtube.com/*",
+                "https://www.youtube.com/*"
+            ],
+            "js": [
+                "content-script.js"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ]
+}
