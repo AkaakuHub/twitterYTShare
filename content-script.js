@@ -33,6 +33,18 @@ function isAlreadyExist(selector) {
     return document.querySelector(selector) ? true : false;
 }
 
+function deleteQuery(url) {
+    let pattern;
+    if (url.includes("playlist")) {
+        pattern = /([&?](si|index|ab_channel)[^&]*)/;
+    } else {
+        pattern = /([&?](si|list|index|ab_channel)[^&]*)/;
+    }
+    url = url.replace(pattern, "");
+    url = url.replace(/[&?]$/, "");
+    return url;
+}
+
 function buildButton(targetElement, kind) {
     if (isAlreadyExist(".twitterYTShareButton")) { return; }
 
@@ -52,6 +64,8 @@ function buildButton(targetElement, kind) {
             titleElmSelector = "#layout > ytmusic-player-bar > div.middle-controls.style-scope.ytmusic-player-bar > div.content-info-wrapper.style-scope.ytmusic-player-bar > yt-formatted-string";
             baseURL = baseURL.split("&list=")[0];
         }
+
+        baseURL = deleteQuery(baseURL);
 
         const titleElm = document.querySelector(titleElmSelector);
         // 中身の文字列を取得
@@ -98,8 +112,8 @@ function main() {
 
     // yt-share-target-rendererの並んでいる場所の、先頭に追加
     const urlPattern_yt = /https:\/\/www.youtube.com\/watch\?v=[0-9A-Za-z_-]{11}/;
-    // const urlPattern_ytMusic = /https:\/\/music.youtube.com.*?/;
-    const urlPattern_ytMusic = /https:\/\/music.youtube.com\/watch\?v=[0-9A-Za-z_-]{11}.*?/;
+    const urlPattern_ytMusic = /https:\/\/music.youtube.com.*?/;
+    // const urlPattern_ytMusic = /https:\/\/music.youtube.com\/watch\?v=[0-9A-Za-z_-]{11}.*?/;
 
     // そもそも、トリガーとなる共有ボタンの位置
     // このボタンが押されたら、yt-share-target-rendererが表示されるまで待って、それからインジェクトする

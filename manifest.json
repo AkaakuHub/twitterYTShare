@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "twitterYTShare",
-    "version": "1.0",
+    "version": "1.1",
     "description": "YouTube, YouTube Musicで、Twitter共有用の文章をコピーするボタンを追加します。",
     "author": "Akaaku",
     "action": {
