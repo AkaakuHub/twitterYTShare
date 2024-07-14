@@ -9,7 +9,7 @@ const messageDiv = `
 <div class="twitterYTShareMessage">コピー</div>
 `
 
-function waitForElement(selector, callback, timeout = 5000, errorCallback = null) {
+function waitForElement(selector, callback, timeout = 500, errorCallback = null) {
     const interval = 50;
     const maxAttempts = timeout / interval;
     let attempts = 0;
@@ -168,7 +168,7 @@ function main() {
                                     console.error("twitterYTShare: targetElementが見つかりませんでした");
                                 }
                             },
-                            250,
+                            500,
                             function () {
                                 // 11番目が見つからなかった場合、8番目を探す(ytmusicで動画を再生している場合)
                                 waitForElement(
@@ -189,6 +189,30 @@ function main() {
                                         } else {
                                             console.error("twitterYTShare: targetElementが見つかりませんでした");
                                         }
+                                    },
+                                    500,
+                                    function () {
+                                        // 11番目も8番目も見つからなかった場合、10番目を探す(ytmusicで動画を再生している場合)
+                                        waitForElement(
+                                            "#items > ytmusic-menu-navigation-item-renderer:nth-child(10)",
+                                            function () {
+                                                const targetElement2 = document.querySelector("#items > ytmusic-menu-navigation-item-renderer:nth-child(10)");
+                                                if (targetElement2) {
+                                                    targetElement2.addEventListener("click", function () {
+                                                        waitForElement("#contents > yt-share-target-renderer:nth-child(1)", function () {
+                                                            const targetElement3 = document.querySelector("#contents > yt-share-target-renderer:nth-child(1)");
+                                                            if (targetElement3) {
+                                                                buildButton(targetElement3, "ytm");
+                                                            } else {
+                                                                console.error("twitterYTShare: targetElementが見つかりませんでした");
+                                                            }
+                                                        });
+                                                    });
+                                                } else {
+                                                    console.error("twitterYTShare: targetElementが見つかりませんでした");
+                                                }
+                                            }
+                                        );
                                     }
                                 );
                             }
