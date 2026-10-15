@@ -1,0 +1,21 @@
+.twitter-yt-share-button {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  margin: 0 10px 0 0;
+  border: 0;
+  border-radius: 50%;
+  background: #1d9bf0;
+  color: #fff;
+  font: 500 14px Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.twitter-yt-share-button:hover {
+  background: #0c85d0;
+}
+
+.twitter-yt-share-button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
