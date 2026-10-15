@@ -1,4 +1,5 @@
 import '../youtube.css';
+import copyIcon from '@material-design-icons/svg/filled/content_copy.svg?raw';
 import { createShareText } from '../share-text';
 
 const PANEL_SELECTOR = 'yt-unified-share-panel-renderer';
@@ -8,8 +9,7 @@ const BUTTON_CLASS = 'twitter-yt-share-button';
 export default defineContentScript({
   matches: ['https://www.youtube.com/*'],
   main(ctx) {
-    const popupContainer = document.querySelector('ytd-popup-container');
-    if (!popupContainer) return;
+    let popupContainer = document.querySelector('ytd-popup-container');
 
     function addButton() {
       const panel = popupContainer?.querySelector(PANEL_SELECTOR);
@@ -19,7 +19,7 @@ export default defineContentScript({
       const button = document.createElement('button');
       button.type = 'button';
       button.className = BUTTON_CLASS;
-      button.textContent = 'コピー';
+      button.innerHTML = `<span class="twitter-yt-share-icon" aria-hidden="true">${copyIcon}</span><span class="twitter-yt-share-label">コピー</span>`;
       button.title = 'X共有用の文章をコピー';
       button.addEventListener('click', async () => {
         const title = document.querySelector('ytd-watch-metadata h1')?.textContent ?? '';
@@ -28,7 +28,7 @@ export default defineContentScript({
 
         try {
           await navigator.clipboard.writeText(shareText);
-          panel.querySelector<HTMLElement>('tp-yt-paper-icon-button')?.click();
+          panel.querySelector<HTMLButtonElement>('#close-button button')?.click();
         } catch (error) {
           console.error('twitterYTShare: コピーに失敗しました', error);
         }
@@ -37,8 +37,16 @@ export default defineContentScript({
     }
 
     addButton();
-    const observer = new MutationObserver(addButton);
-    observer.observe(popupContainer, { childList: true, subtree: true });
+    const observer = new MutationObserver(() => {
+      if (!popupContainer) {
+        popupContainer = document.querySelector('ytd-popup-container');
+        if (!popupContainer) return;
+        observer.disconnect();
+        observer.observe(popupContainer, { childList: true, subtree: true });
+      }
+      addButton();
+    });
+    observer.observe(popupContainer ?? document.documentElement, { childList: true, subtree: true });
     ctx.onInvalidated(() => observer.disconnect());
   },
 });

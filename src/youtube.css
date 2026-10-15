@@ -1,18 +1,47 @@
 .twitter-yt-share-button {
-  flex: 0 0 60px;
-  width: 60px;
-  height: 60px;
-  margin: 0 10px 0 0;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 70px;
+  margin: 1px 8px 1px 0;
+  padding: 5px 1px 2px;
   border: 0;
-  border-radius: 50%;
-  background: #1d9bf0;
-  color: #fff;
-  font: 500 14px Roboto, Arial, sans-serif;
+  border-radius: 3px;
+  vertical-align: top;
+  background: transparent;
+  color: #0f0f0f;
   cursor: pointer;
 }
 
-.twitter-yt-share-button:hover {
-  background: #0c85d0;
+html[dark] .twitter-yt-share-button {
+  color: #f1f1f1;
+}
+
+.twitter-yt-share-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 4px 8px;
+  border-radius: 50%;
+  background: #1da1f2;
+  color: #fff;
+}
+
+.twitter-yt-share-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.twitter-yt-share-label {
+  display: block;
+  font: 400 12px / 18px Roboto, Arial, sans-serif;
+  text-align: center;
+}
+
+.twitter-yt-share-button:hover .twitter-yt-share-icon {
+  filter: brightness(1.1);
 }
 
 .twitter-yt-share-button:focus-visible {
